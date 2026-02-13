@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard - Aeroponics{% endblock %}
+{% block content %}
+<div class="grid">
+  <!-- Environment Card -->
+  <div class="card">
+    <h3>Environment</h3>
+    <div class="stats">
+      <div><strong>Temp:</strong> <span id="temp">--</span> C</div>
+      <div><strong>Humidity:</strong> <span id="hum">--</span> %</div>
+      <div><strong>pH:</strong> <span id="ph">--</span></div>
+      <div><strong>CO:</strong> <span id="co">--</span> ppm</div>
+      <div><strong>Pump:</strong> <span id="pump">--</span></div>
+    </div>
+  </div>
+
+  <!-- HuskyLens Chart -->
+  <div class="card">
+    <h3>HuskyLens Color Distribution</h3>
+    <canvas id="colorChart"></canvas>
+  </div>
+
+  <!-- History Chart -->
+  <div class="card">
+    <h3>Sensor History (Last 24 Hours)</h3>
+    <canvas id="historyChart"></canvas>
+  </div>
+
+  <!-- Date Range Filter -->
+  <div class="card">
+    <h3>Filter by Date Range</h3>
+    <form id="rangeForm">
+      <label for="start">Start Date:</label>
+      <input type="datetime-local" id="start" name="start" required>
+      <label for="end">End Date:</label>
+      <input type="datetime-local" id="end" name="end" required>
+      <button type="submit">Filter</button>
+    </form>
+    <canvas id="rangeChart"></canvas>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}History - Aeroponics{% endblock %}
+{% block content %}
+<h3>Sensor History (Filter by Date Range)</h3>
+
+<form method="POST">
+  <label for="start">Start Date:</label>
+  <input type="datetime-local" name="start" required>
+  <label for="end">End Date:</label>
+  <input type="datetime-local" name="end" required>
+  <button type="submit">Filter</button>
+</form>
+
+{% if readings %}
+<div class="card">
+  <canvas id="rangeChart"></canvas>
+</div>
+
+<script>
+  const labels = {{ readings|map(attribute=0)|list|tojson }};
+  const temps  = {{ readings|map(attribute=1)|list|tojson }};
+  const hums   = {{ readings|map(attribute=2)|list|tojson }};
+  const phs    = {{ readings|map(attribute=3)|list|tojson }};
+  const co_ppm = {{ readings|map(attribute=4)|list|tojson }};
+
+  new Chart(document.getElementById("rangeChart"), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Temp (°C)', data: temps, borderColor: 'red', fill: false },
+        { label: 'Humidity (%)', data: hums, borderColor: 'blue', fill: false },
+        { label: 'pH', data: phs, borderColor: 'green', fill: false },
+        { label: 'CO (ppm)', data: co_ppm, borderColor: 'orange', fill: false }
+      ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+  });
+</script>
+{% endif %}
+{% endblock %}
