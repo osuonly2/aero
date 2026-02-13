@@ -1,0 +1,6 @@
+
+flask==3.0.3
+flask-login==0.6.3
+flask-bcrypt==1.0.1
+itsdangerous==2.2.0
+smbus2==0.4.3   # optional; only needed on Raspberry Pi for I2C (HuskyLens)
